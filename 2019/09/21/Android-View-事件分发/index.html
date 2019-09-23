@@ -79,22 +79,14 @@
 
 
 
-<meta name="description" content="1.android view 事件分发详解 应用层的传递过程遵循如下顺序：Activity-&amp;gt;Window-&amp;gt;View;即View事件最先传递给Activity，然后由Activity传递给Window，最后由Window传递给View；顶级View（DecorView） Action_down  Action_up Atcion_move 事件分发的顺序 Touch-&amp;gt; dis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android View 事件分发">
+<meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://yoursite.com/2019/09/21/Android-View-事件分发/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.android view 事件分发详解 应用层的传递过程遵循如下顺序：Activity-&amp;gt;Window-&amp;gt;View;即View事件最先传递给Activity，然后由Activity传递给Window，最后由Window传递给View；顶级View（DecorView） Action_down  Action_up Atcion_move 事件分发的顺序 Touch-&amp;gt; dis">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="d:/youdaowork/qq7000EAFA4DF8CC161B5AF14DC7AEADCA/837d7d3ce89c449ebe5d17d331c9e41e/clipboard.png">
-<meta property="og:image" content="d:/youdaowork/qq7000EAFA4DF8CC161B5AF14DC7AEADCA/ea891a472b204d828d5db21beb0bf032/clipboard.png">
-<meta property="og:image" content="d:/youdaowork/qq7000EAFA4DF8CC161B5AF14DC7AEADCA/6a7c6994cb454040ac160fd967b65286/clipboard.png">
-<meta property="og:image" content="d:/youdaowork/qq7000EAFA4DF8CC161B5AF14DC7AEADCA/eba42b8fd996457fbdac19d72308bbd4/clipboard.png">
-<meta property="og:updated_time" content="2019-09-21T08:52:23.642Z">
+<meta property="og:updated_time" content="2019-09-23T01:20:16.570Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android View 事件分发">
-<meta name="twitter:description" content="1.android view 事件分发详解 应用层的传递过程遵循如下顺序：Activity-&amp;gt;Window-&amp;gt;View;即View事件最先传递给Activity，然后由Activity传递给Window，最后由Window传递给View；顶级View（DecorView） Action_down  Action_up Atcion_move 事件分发的顺序 Touch-&amp;gt; dis">
-<meta name="twitter:image" content="d:/youdaowork/qq7000EAFA4DF8CC161B5AF14DC7AEADCA/837d7d3ce89c449ebe5d17d331c9e41e/clipboard.png">
+<meta name="twitter:title" content="Hexo">
 
 
 
@@ -130,7 +122,7 @@
 
 
 
-  <title>Android View 事件分发 | Hexo</title>
+  <title> | Hexo</title>
   
 
 
@@ -254,7 +246,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android View 事件分发</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -304,39 +296,7 @@
       
 
       
-        <p>1.android view 事件分发详解</p>
-<p>应用层的传递过程遵循如下顺序：Activity-&gt;Window-&gt;View;即View事件最先传递给Activity，然后由Activity传递给Window，最后由Window传递给View；顶级View（DecorView）</p>
-<p>Action_down  Action_up Atcion_move</p>
-<p>事件分发的顺序 Touch-&gt; dispatchTouchEvent-&gt;TouchEvent-&gt;onClick </p>
-<p><img src="D:/youdaowork/qq7000EAFA4DF8CC161B5AF14DC7AEADCA/837d7d3ce89c449ebe5d17d331c9e41e/clipboard.png" alt="img"></p>
-<p>dispatchTouchEvent</p>
-<p>—&gt;return true</p>
-<p>TouchEvent  </p>
-<p>case Action_up</p>
-<p>onClick</p>
-<p>2.ViewGroup事件分发</p>
-<p>点击之后先执行ViewGroup 的dispatchTouchEvent 方法，再执行layout的OnInterceptTouchEvent方法在此方法中查找到子View，然后再执行子Vview的dispatchTouchEvent方法。</p>
-<p><img src="D:/youdaowork/qq7000EAFA4DF8CC161B5AF14DC7AEADCA/ea891a472b204d828d5db21beb0bf032/clipboard.png" alt="img"></p>
-<p>如果将Layout的onInterceptTouchEvent的返回改为true  那ViewGroip会将事件消费掉，不会再向下分发事件，子View将接受不到事件。</p>
-<p>\1. Android事件分发是先传递到ViewGroup，再由ViewGroup传递到View的。</p>
-<p>\2. 在ViewGroup中可以通过onInterceptTouchEvent方法对事件传递进行拦截，onInterceptTouchEvent方法返回true代表不允许事件继续向子View传递，返回false代表不对事件进行拦截，默认返回false。</p>
-<p>\3. 子View中如果将传递的事件消费掉，ViewGroup中将无法接收到任何事件。</p>
-<p><img src="D:/youdaowork/qq7000EAFA4DF8CC161B5AF14DC7AEADCA/6a7c6994cb454040ac160fd967b65286/clipboard.png" alt="img"></p>
-<p>View 的事件分发 </p>
-<p>由父到子，由子到父</p>
-<p>\1. 3个核心方法 ： dispacthTouchEvent()  onInterceptTouchEvent() onEventTouch()</p>
-<p>2.伪代码：ViewGroup 中的事件分发</p>
-<p>public  boolean dispatchTouchEvent(Event ev){</p>
-<p>  boolean isGo = false;</p>
-<p>if(onInterecptTouchEvent(ev)){</p>
-<p>isGo = onTouchEvent(ev);</p>
-<p>}else{</p>
-<p> isGo  = childView.dispacthTouchEvent(ev); </p>
-<p>}</p>
-<p>return isGo;</p>
-<p>}</p>
-<p><img src="D:/youdaowork/qq7000EAFA4DF8CC161B5AF14DC7AEADCA/eba42b8fd996457fbdac19d72308bbd4/clipboard.png" alt="img"></p>
-
+        
       
     </div>
     
