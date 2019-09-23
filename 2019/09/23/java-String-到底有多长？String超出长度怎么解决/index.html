@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="java,">
 
 
 
@@ -79,13 +79,22 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="zeyu.huang">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Java String 可以有多长？1. 字符串有多长是指字符数还是字节数？2.字符串有几种存在形式？3.字符串存在的形式有那些限制？由一个问题，我们可以延伸出这么多问题？ 2种存在形式样板代码： 1// 栈String longStr = &amp;quot;aaaaa.....aaaaa&amp;quot;;  这种样板代码的形式是存在栈中。 从文件中读取字符串： 123// 堆byte[] strByte">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java String 到底有多长？String超出长度怎么解决?">
+<meta property="og:url" content="http://yoursite.com/2019/09/23/java-String-到底有多长？String超出长度怎么解决/index.html">
 <meta property="og:site_name" content="zeyu.huang">
+<meta property="og:description" content="Java String 可以有多长？1. 字符串有多长是指字符数还是字节数？2.字符串有几种存在形式？3.字符串存在的形式有那些限制？由一个问题，我们可以延伸出这么多问题？ 2种存在形式样板代码： 1// 栈String longStr = &amp;quot;aaaaa.....aaaaa&amp;quot;;  这种样板代码的形式是存在栈中。 从文件中读取字符串： 123// 堆byte[] strByte">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2019082216004140.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwOTk2ODgx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190822163945352.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190822171217999.png">
+<meta property="og:updated_time" content="2019-09-23T09:54:03.312Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zeyu.huang">
+<meta name="twitter:title" content="java String 到底有多长？String超出长度怎么解决?">
+<meta name="twitter:description" content="Java String 可以有多长？1. 字符串有多长是指字符数还是字节数？2.字符串有几种存在形式？3.字符串存在的形式有那些限制？由一个问题，我们可以延伸出这么多问题？ 2种存在形式样板代码： 1// 栈String longStr = &amp;quot;aaaaa.....aaaaa&amp;quot;;  这种样板代码的形式是存在栈中。 从文件中读取字符串： 123// 堆byte[] strByte">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2019082216004140.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwOTk2ODgx,size_16,color_FFFFFF,t_70">
 
 
 
@@ -115,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/23/java-String-到底有多长？String超出长度怎么解决/">
 
 
 
 
 
-  <title>zeyu.huang</title>
+  <title>java String 到底有多长？String超出长度怎么解决? | zeyu.huang</title>
   
 
 
@@ -140,8 +149,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -244,9 +252,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -276,9 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/23/java-String-到底有多长？String超出长度怎么解决/" itemprop="url">java String 到底有多长？String超出长度怎么解决?</a></h1>
+          <h1 class="post-title" itemprop="name headline">java String 到底有多长？String超出长度怎么解决?</h1>
         
 
         <div class="post-meta">
@@ -328,9 +334,7 @@
       
 
       
-        
-          
-            <h1 id="Java-String-可以有多长？"><a href="#Java-String-可以有多长？" class="headerlink" title="Java String 可以有多长？"></a>Java String 可以有多长？</h1><h5 id="1-字符串有多长是指字符数还是字节数？"><a href="#1-字符串有多长是指字符数还是字节数？" class="headerlink" title="1. 字符串有多长是指字符数还是字节数？"></a><strong>1. 字符串有多长是指字符数还是字节数？</strong></h5><h5 id="2-字符串有几种存在形式？"><a href="#2-字符串有几种存在形式？" class="headerlink" title="2.字符串有几种存在形式？"></a><strong>2.字符串有几种存在形式？</strong></h5><h5 id="3-字符串存在的形式有那些限制？"><a href="#3-字符串存在的形式有那些限制？" class="headerlink" title="3.字符串存在的形式有那些限制？"></a><strong>3.字符串存在的形式有那些限制？</strong></h5><p>由一个问题，我们可以延伸出这么多问题？</p>
+        <h1 id="Java-String-可以有多长？"><a href="#Java-String-可以有多长？" class="headerlink" title="Java String 可以有多长？"></a>Java String 可以有多长？</h1><h5 id="1-字符串有多长是指字符数还是字节数？"><a href="#1-字符串有多长是指字符数还是字节数？" class="headerlink" title="1. 字符串有多长是指字符数还是字节数？"></a><strong>1. 字符串有多长是指字符数还是字节数？</strong></h5><h5 id="2-字符串有几种存在形式？"><a href="#2-字符串有几种存在形式？" class="headerlink" title="2.字符串有几种存在形式？"></a><strong>2.字符串有几种存在形式？</strong></h5><h5 id="3-字符串存在的形式有那些限制？"><a href="#3-字符串存在的形式有那些限制？" class="headerlink" title="3.字符串存在的形式有那些限制？"></a><strong>3.字符串存在的形式有那些限制？</strong></h5><p>由一个问题，我们可以延伸出这么多问题？</p>
 <h2 id="2种存在形式"><a href="#2种存在形式" class="headerlink" title="2种存在形式"></a>2种存在形式</h2><p>样板代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// 栈String longStr = &quot;aaaaa.....aaaaa&quot;;</span><br></pre></td></tr></table></figure>
 
@@ -367,8 +371,6 @@
 <h2 id="String超出长度怎么解决？"><a href="#String超出长度怎么解决？" class="headerlink" title="String超出长度怎么解决？"></a>String超出长度怎么解决？</h2><p>由此得出如果我们的字符长过长，我们可以通过写文件 读文件的方式去解决。</p>
 <p>javac编译源码github参考地址：<a href="https://github.com/infobip/infobip-open-jdk-8" target="_blank" rel="noopener">https://github.com/infobip/infobip-open-jdk-8</a></p>
 
-          
-        
       
     </div>
     
@@ -383,14 +385,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -400,10 +408,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -411,6 +420,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -431,8 +444,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -485,6 +507,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-String-可以有多长？"><span class="nav-number">1.</span> <span class="nav-text">Java String 可以有多长？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-字符串有多长是指字符数还是字节数？"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">1. 字符串有多长是指字符数还是字节数？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-字符串有几种存在形式？"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">2.字符串有几种存在形式？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-字符串存在的形式有那些限制？"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">3.字符串存在的形式有那些限制？</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#2种存在形式"><span class="nav-number">1.1.</span> <span class="nav-text">2种存在形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈中的String"><span class="nav-number">1.2.</span> <span class="nav-text">栈中的String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆中的String"><span class="nav-number">1.3.</span> <span class="nav-text">堆中的String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String超出长度怎么解决？"><span class="nav-number">1.4.</span> <span class="nav-text">String超出长度怎么解决？</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -625,6 +663,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
