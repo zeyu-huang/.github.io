@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/android_easyicon.net.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/android_easyicon.net.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/android_easyicon.net.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/android_easyicon.net.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android MVP,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言 ：Android Mvp 模式是现在常用的设计模式，将视图和业务逻辑解耦，分为Model-View-Presenter三个部分。  1.M 层 为数据模型 做一些数据相关的处理 2.P 层 控制View 层 为UI 交互的发起者 接受M层的反馈 然后对 View层的控制 3.V 层 接受P层的控制改变UI 今天我们要讲的是一个MVP的一个库 Mosby 他能更好的实现MVP，让实现MVP更加">
+<meta name="keywords" content="Android MVP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Mosby MVP的使用">
+<meta property="og:url" content="http://yoursite.com/2019/09/23/Android-Mosby-MVP的使用/index.html">
+<meta property="og:site_name" content="zeyu.huang">
+<meta property="og:description" content="前言 ：Android Mvp 模式是现在常用的设计模式，将视图和业务逻辑解耦，分为Model-View-Presenter三个部分。  1.M 层 为数据模型 做一些数据相关的处理 2.P 层 控制View 层 为UI 交互的发起者 接受M层的反馈 然后对 View层的控制 3.V 层 接受P层的控制改变UI 今天我们要讲的是一个MVP的一个库 Mosby 他能更好的实现MVP，让实现MVP更加">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190813101213533.png">
+<meta property="og:updated_time" content="2019-09-23T14:16:01.071Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Mosby MVP的使用">
+<meta name="twitter:description" content="前言 ：Android Mvp 模式是现在常用的设计模式，将视图和业务逻辑解耦，分为Model-View-Presenter三个部分。  1.M 层 为数据模型 做一些数据相关的处理 2.P 层 控制View 层 为UI 交互的发起者 接受M层的反馈 然后对 View层的控制 3.V 层 接受P层的控制改变UI 今天我们要讲的是一个MVP的一个库 Mosby 他能更好的实现MVP，让实现MVP更加">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190813101213533.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/23/Android-Mosby-MVP的使用/">
+
+
+
+
+
+  <title>Android Mosby MVP的使用 | zeyu.huang</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zeyu.huang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/23/Android-Mosby-MVP的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hzy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hzyicon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeyu.huang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android Mosby MVP的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-23T22:03:21+08:00">
+                2019-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言-："><a href="#前言-：" class="headerlink" title="前言 ："></a>前言 ：</h1><p>Android Mvp 模式是现在常用的设计模式，将视图和业务逻辑解耦，分为Model-View-Presenter三个部分。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190813101213533.png" alt></p>
+<p>1.M 层 为数据模型 做一些数据相关的处理</p>
+<p>2.P 层 控制View 层 为UI 交互的发起者 接受M层的反馈 然后对 View层的控制</p>
+<p>3.V 层 接受P层的控制改变UI</p>
+<p>今天我们要讲的是一个MVP的一个库 Mosby 他能更好的实现MVP，让实现MVP更加的快捷，方便更加清晰的搭建MVP。</p>
+<p>开源地址：<a href="https://github.com/sockeqwe/mosby" target="_blank" rel="noopener">https://github.com/sockeqwe/mosby</a></p>
+<p>官方介绍：<a href="http://hannesdorfmann.com/mosby/mvp/" target="_blank" rel="noopener">http://hannesdorfmann.com/mosby/mvp/</a></p>
+<p><strong>依赖</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation &apos;com.hannesdorfmann.mosby:mvp:2.0.1&apos;</span><br><span class="line">implementation &apos;com.hannesdorfmann.mosby:viewstate:2.0.1&apos;</span><br></pre></td></tr></table></figure>
+
+<h2 id="程序实现"><a href="#程序实现" class="headerlink" title="程序实现"></a><strong>程序实现</strong></h2><h3 id="使用Mosby-编写一个应用程序，界面一个Button-一个EditView-一个TextView"><a href="#使用Mosby-编写一个应用程序，界面一个Button-一个EditView-一个TextView" class="headerlink" title="使用Mosby 编写一个应用程序，界面一个Button 一个EditView 一个TextView"></a>使用Mosby 编写一个应用程序，界面一个Button 一个EditView 一个TextView</h3><ul>
+<li><p>输入框输入电话号码</p>
+</li>
+<li><p>点击按钮，请求接口查血电话号码的归属地</p>
+</li>
+<li><p>显示电话号码的归属地</p>
+</li>
+</ul>
+<h3 id="使用到的技术"><a href="#使用到的技术" class="headerlink" title="使用到的技术"></a>使用到的技术</h3><ul>
+<li><p>Mosby</p>
+</li>
+<li><p>RxJava</p>
+</li>
+<li><p>OkHttp</p>
+</li>
+</ul>
+<h3 id="1-Model-数据模型层"><a href="#1-Model-数据模型层" class="headerlink" title="1. Model 数据模型层"></a>1. Model 数据模型层</h3><blockquote>
+<p>  定义从服务器返回的数据 Bean</p>
+</blockquote>
+<p>Bean数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * resultcode : 200</span></span><br><span class="line"><span class="comment">  * reason : Return Successd!</span></span><br><span class="line"><span class="comment">  * result : &#123;"province":"四川","city":"成都","areacode":"028","zip":"610000","company":"移动","card":""&#125;</span></span><br><span class="line"><span class="comment">  * error_code : 0</span></span><br><span class="line"><span class="comment">  */</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>生成实体类，通过工具生成。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.hzy.phone.model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PhoneInfo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * resultcode : 200</span></span><br><span class="line"><span class="comment">     * reason : Return Successd!</span></span><br><span class="line"><span class="comment">     * result : &#123;"province":"四川","city":"成都","areacode":"028","zip":"610000","company":"移动","card":""&#125;</span></span><br><span class="line"><span class="comment">     * error_code : 0</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> resultcode;</span><br><span class="line">    <span class="keyword">private</span> String reason;</span><br><span class="line">    <span class="keyword">private</span> ResultBean result;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> error_code;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getResultcode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> resultcode;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setResultcode</span><span class="params">(<span class="keyword">int</span> resultcode)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.resultcode = resultcode;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getReason</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> reason;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setReason</span><span class="params">(String reason)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.reason = reason;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResultBean <span class="title">getResult</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setResult</span><span class="params">(ResultBean result)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.result = result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getError_code</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> error_code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setError_code</span><span class="params">(<span class="keyword">int</span> error_code)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.error_code = error_code;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ResultBean</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * province : 四川</span></span><br><span class="line"><span class="comment">         * city : 成都</span></span><br><span class="line"><span class="comment">         * areacode : 028</span></span><br><span class="line"><span class="comment">         * zip : 610000</span></span><br><span class="line"><span class="comment">         * company : 移动</span></span><br><span class="line"><span class="comment">         * card :</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> String province;</span><br><span class="line">        <span class="keyword">private</span> String city;</span><br><span class="line">        <span class="keyword">private</span> String areacode;</span><br><span class="line">        <span class="keyword">private</span> String zip;</span><br><span class="line">        <span class="keyword">private</span> String company;</span><br><span class="line">        <span class="keyword">private</span> String card;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getProvince</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> province;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setProvince</span><span class="params">(String province)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.province = province;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getCity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> city;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCity</span><span class="params">(String city)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.city = city;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getAreacode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> areacode;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAreacode</span><span class="params">(String areacode)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.areacode = areacode;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getZip</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> zip;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setZip</span><span class="params">(String zip)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.zip = zip;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getCompany</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> company;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCompany</span><span class="params">(String company)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.company = company;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getCard</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> card;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCard</span><span class="params">(String card)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.card = card;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>定义model层数据返回接口 成功 和  失败</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">QueryModeListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onQuerySuccess</span><span class="params">(PhoneInfo phoneInfo)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onQueryError</span><span class="params">(<span class="keyword">int</span> code)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>编写Model层的数据请求实现，传入model的接口监听，回调成功和失败。通过RxJava 进行网络请求的线程切换。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">queryPhoneNumber</span><span class="params">(String phonenumber, <span class="keyword">final</span> QueryModeListener queryModeListener)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Map&lt;String, Object&gt; headerMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        headerMap.put(<span class="string">"phone"</span>, phonenumber);</span><br><span class="line">        <span class="keyword">final</span> Map&lt;String, Object&gt; queryMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        queryMap.put(<span class="string">"key"</span>, <span class="string">"e8884c80009b02439019b4ee99c0d2a5"</span>);</span><br><span class="line">        Observable.create(<span class="keyword">new</span> ObservableOnSubscribe&lt;String&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ObservableEmitter&lt;String&gt; e)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                e.onNext(doGet(mUrl, headerMap, queryMap));</span><br><span class="line">                e.onComplete();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).subscribeOn(Schedulers.io())</span><br><span class="line">                .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">                .subscribe(<span class="keyword">new</span> Observer&lt;String&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Disposable d)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">                        Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line">                        PhoneInfo phoneInfo = gson.fromJson(s, PhoneInfo.class);</span><br><span class="line">                        <span class="keyword">if</span> (phoneInfo.getResultcode() == QUERY_SUCCESS) &#123;</span><br><span class="line">                            queryModeListener.onQuerySuccess(phoneInfo);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            queryModeListener.onQueryError(phoneInfo.getError_code());</span><br><span class="line">                        &#125;</span><br><span class="line">                        Log.e(TAG, <span class="string">"onNext: "</span>);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                        Log.e(TAG, <span class="string">"onComplete: "</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>请求数据的Okhttp，网络请求功能的实现</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> String mUrl = <span class="string">"http://apis.juhe.cn/mobile/get?"</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> String TAG = <span class="string">"QueryModel"</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> QUERY_SUCCESS = <span class="number">200</span>;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * get 请求</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> url    url</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> header 请求头参数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> query  参数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequiresApi</span>(api = Build.VERSION_CODES.N)</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">doGet</span><span class="params">(String url, Map&lt;String, Object&gt; header, Map&lt;String, Object&gt; query)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</span><br><span class="line">    <span class="comment">// 创建一个请求 Builder</span></span><br><span class="line">    Request.Builder builder = <span class="keyword">new</span> Request.Builder();</span><br><span class="line">    <span class="comment">// 创建一个 request</span></span><br><span class="line">    Request request = builder.url(url).build();</span><br><span class="line">    <span class="keyword">final</span> HttpUrl.Builder urlBuilders = request.url().newBuilder();</span><br><span class="line">    Iterator&lt;Map.Entry&lt;String, Object&gt;&gt; headerIterator = header.entrySet().iterator();</span><br><span class="line"></span><br><span class="line">    headerIterator.forEachRemaining(<span class="keyword">new</span> Consumer&lt;Map.Entry&lt;String, Object&gt;&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Map.Entry&lt;String, Object&gt; e)</span> </span>&#123;</span><br><span class="line">            urlBuilders.addQueryParameter(e.getKey(), String.valueOf(e.getValue()));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 装载请求的参数</span></span><br><span class="line">    Iterator&lt;Map.Entry&lt;String, Object&gt;&gt; queryIterator = query.entrySet().iterator();</span><br><span class="line">    queryIterator.forEachRemaining(<span class="keyword">new</span> Consumer&lt;Map.Entry&lt;String, Object&gt;&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Map.Entry&lt;String, Object&gt; e)</span> </span>&#123;</span><br><span class="line">            urlBuilders.addQueryParameter(e.getKey(), (String) e.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置自定义的 builder</span></span><br><span class="line">    builder.url(urlBuilders.build());</span><br><span class="line">    <span class="keyword">try</span> (Response execute = client.newCall(builder.build()).execute()) &#123;</span><br><span class="line">        <span class="keyword">return</span> execute.body().string();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-presenter-层的实现"><a href="#2-presenter-层的实现" class="headerlink" title="2.presenter 层的实现"></a>2.presenter 层的实现</h3><p>P层主要思想为沟通M层和V层的数据交互和显示</p>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; QueryPhonePresenter 继承 MvpBasePresenter&lt;QueryPhoneView&gt; 注：QueryPhoneView是我们定义的View层的接口</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QueryPhonePresenter</span> <span class="keyword">extends</span> <span class="title">MvpBasePresenter</span>&lt;<span class="title">QueryPhoneView</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequiresApi</span>(api = Build.VERSION_CODES.N)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">queryPresenter</span><span class="params">(String phoneNuber)</span> </span>&#123;</span><br><span class="line">        QueryModeListener queryModeListener = <span class="keyword">new</span> QueryModeListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onQuerySuccess</span><span class="params">(PhoneInfo phoneInfo)</span> </span>&#123;</span><br><span class="line">                QueryPhoneView queryPhoneView = getView();</span><br><span class="line">                <span class="keyword">if</span> (queryPhoneView != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    queryPhoneView.onQuerySuccess(phoneInfo);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onQueryError</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">                QueryPhoneView queryPhoneView = getView();</span><br><span class="line">                <span class="keyword">if</span> (queryPhoneView != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    queryPhoneView.onError(code);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        QueryModel.queryPhoneNumber(phoneNuber, queryModeListener);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; </span><br><span class="line">&gt; 实现model的接口，通过getView方法获取到View层的接口，然后进行View层的接口回调，实现改变View，最后调用Model的数据请求功能。</span><br><span class="line">&gt; </span><br><span class="line">&gt; 注：getView方法需要判null</span><br><span class="line">&gt; </span><br><span class="line">&gt; ### 3.View层的实现</span><br><span class="line">&gt; </span><br><span class="line">&gt; 定义View层的接口</span><br><span class="line">&gt; </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">QueryPhoneView</span> <span class="keyword">extends</span> <span class="title">MvpView</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onQuerySuccess</span><span class="params">(PhoneInfo phoneInfo)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onError</span><span class="params">(<span class="keyword">int</span> code)</span></span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; </span><br><span class="line">&gt; 最后Activity 继承 MvpActivity&lt;QueryPhoneView, QueryPhonePresenter&gt; 实现接口QueryPhoneView</span><br><span class="line">&gt; </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">MvpActivity</span>&lt;<span class="title">QueryPhoneView</span>, <span class="title">QueryPhonePresenter</span>&gt; <span class="keyword">implements</span> <span class="title">QueryPhoneView</span>, <span class="title">View</span>.<span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Button mQueryBt;</span><br><span class="line">    <span class="keyword">private</span> EditText mQueryEt;</span><br><span class="line">    <span class="keyword">private</span> TextView mQueryTv;</span><br><span class="line">    <span class="keyword">private</span> QueryPhonePresenter mQueryPhonePresenter;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        initView();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mQueryBt = findViewById(R.id.query_bt);</span><br><span class="line">        mQueryEt = findViewById(R.id.nuber_et);</span><br><span class="line">        mQueryTv = findViewById(R.id.dispaly_tv);</span><br><span class="line">        mQueryBt.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NonNull</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> QueryPhonePresenter <span class="title">createPresenter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mQueryPhonePresenter == <span class="keyword">null</span>) &#123;</span><br><span class="line">            mQueryPhonePresenter = <span class="keyword">new</span> QueryPhonePresenter();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mQueryPhonePresenter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onQuerySuccess</span><span class="params">(PhoneInfo phoneInfo)</span> </span>&#123;</span><br><span class="line">        PhoneInfo.ResultBean resultBean = phoneInfo.getResult();</span><br><span class="line">        mQueryTv.setText(resultBean.getCity());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(<span class="keyword">int</span> code)</span> </span>&#123;</span><br><span class="line">        mQueryTv.setText(<span class="string">"ErrorCode"</span> + code);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequiresApi</span>(api = Build.VERSION_CODES.N)</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">        mQueryPhonePresenter.queryPresenter(mQueryEt.getText().toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重写方法createPresenter 从中获取到P层的实列。总体来说mosby减少了一些不必要的代码，让代码逻辑看起来更加的清晰，易懂。</p>
+<p>效果展示<br><a href="https://img-blog.csdnimg.cn/20190813115344776.gif" target="_blank" rel="noopener">https://img-blog.csdnimg.cn/20190813115344776.gif</a></p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+	</div>
+	
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android-MVP/" rel="tag"><i class="fa fa-tag"></i> Android MVP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/23/Android-9-有线网络的方法适配/" rel="next" title="Android 9 有线网络的方法适配">
+                <i class="fa fa-chevron-left"></i> Android 9 有线网络的方法适配
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/24/Android-属性动画/" rel="prev" title="Android 属性动画">
+                Android 属性动画 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/hzyicon.jpg" alt="hzy">
+            
+              <p class="site-author-name" itemprop="name">hzy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_30996881" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言-："><span class="nav-number">1.</span> <span class="nav-text">前言 ：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#程序实现"><span class="nav-number">1.1.</span> <span class="nav-text">程序实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Mosby-编写一个应用程序，界面一个Button-一个EditView-一个TextView"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用Mosby 编写一个应用程序，界面一个Button 一个EditView 一个TextView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用到的技术"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用到的技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Model-数据模型层"><span class="nav-number">1.1.3.</span> <span class="nav-text">1. Model 数据模型层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-presenter-层的实现"><span class="nav-number">1.1.4.</span> <span class="nav-text">2.presenter 层的实现</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzy</span>
+
+  
+</div>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>
