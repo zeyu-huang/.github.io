@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/android_easyicon.net.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/android_easyicon.net.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/android_easyicon.net.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/android_easyicon.net.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="系统信息设计与分析,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="软件的基于生命周期开发方法​     早期软件开发处于一种无序状态，经历软件危机之后，开始采用系统工程方法论指导开发，根据软件开发的的生命周期将整个开发划为5个阶段（规划阶段、分析阶段、设计阶段、实施阶段、运行和维护阶段），明确每个阶段的任务、任务成果的体现。最初大家都按照这些通过的阶段按照顺序进行项目任务开发。后来随着企业需求越来越复杂灵活，开发工具也越来越强大，不同项目的开发过程中基于上述生命">
+<meta name="keywords" content="系统信息设计与分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件的基于生命周期开发方法">
+<meta property="og:url" content="http://yoursite.com/2019/10/26/软件的基于生命周期开发方法/index.html">
+<meta property="og:site_name" content="zeyu.huang">
+<meta property="og:description" content="软件的基于生命周期开发方法​     早期软件开发处于一种无序状态，经历软件危机之后，开始采用系统工程方法论指导开发，根据软件开发的的生命周期将整个开发划为5个阶段（规划阶段、分析阶段、设计阶段、实施阶段、运行和维护阶段），明确每个阶段的任务、任务成果的体现。最初大家都按照这些通过的阶段按照顺序进行项目任务开发。后来随着企业需求越来越复杂灵活，开发工具也越来越强大，不同项目的开发过程中基于上述生命">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20191026013629647.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwOTk2ODgx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20191026013645197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwOTk2ODgx,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20191026013657184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwOTk2ODgx,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2019-10-26T07:35:26.379Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件的基于生命周期开发方法">
+<meta name="twitter:description" content="软件的基于生命周期开发方法​     早期软件开发处于一种无序状态，经历软件危机之后，开始采用系统工程方法论指导开发，根据软件开发的的生命周期将整个开发划为5个阶段（规划阶段、分析阶段、设计阶段、实施阶段、运行和维护阶段），明确每个阶段的任务、任务成果的体现。最初大家都按照这些通过的阶段按照顺序进行项目任务开发。后来随着企业需求越来越复杂灵活，开发工具也越来越强大，不同项目的开发过程中基于上述生命">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20191026013629647.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwOTk2ODgx,size_16,color_FFFFFF,t_70">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/26/软件的基于生命周期开发方法/">
+
+
+
+
+
+  <title>软件的基于生命周期开发方法 | zeyu.huang</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zeyu.huang</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android开发博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/26/软件的基于生命周期开发方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hzy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hzyicon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeyu.huang">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件的基于生命周期开发方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-26T15:30:45+08:00">
+                2019-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.6k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="软件的基于生命周期开发方法"><a href="#软件的基于生命周期开发方法" class="headerlink" title="软件的基于生命周期开发方法"></a>软件的基于生命周期开发方法</h1><p>​     早期软件开发处于一种无序状态，经历软件危机之后，开始采用系统工程方法论指导开发，根据软件开发的的生命周期将整个开发划为5个阶段（<strong>规划阶段、分析阶段、设计阶段、实施阶段、运行和维护阶段</strong>），明确每个阶段的任务、任务成果的体现。最初大家都按照这些通过的阶段按照顺序进行项目任务开发。后来随着企业需求越来越复杂灵活，开发工具也越来越强大，不同项目的开发过程中基于上述生命周期出现很多变种，从而衍生出各种开发方法，这些方法按照不同的开发过程模型来完成各项开发活动。</p>
+<h3 id="开发方法"><a href="#开发方法" class="headerlink" title="开发方法"></a>开发方法</h3><ol>
+<li>瀑布流开发方法</li>
+<li>原型开发方法</li>
+<li>迭代开发方法</li>
+<li>敏捷开发方法</li>
+</ol>
+<h2 id="1-瀑布流开发方法"><a href="#1-瀑布流开发方法" class="headerlink" title="1.瀑布流开发方法"></a>1.瀑布流开发方法</h2><p>这是一种20世纪80年代前的开发方式，一直采用的是严格按照生命周期阶段的开发过程，整个开发过程看起来就像是瀑布一样，稳定地向下依次经过这些阶段。每个阶段都有一个开始点和结束点，一旦到达下一阶段，通常不允许再回到上一阶段，正如瀑布不会向上倒流一样。</p>
+<p><img src="https://img-blog.csdnimg.cn/20191026013629647.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwOTk2ODgx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>   这种方法看起来简单明了，过于理想主义。最大的特点就是阶段间严格的顺序和依赖性，只有前一阶段完成，才能开始后一阶段，前一阶段的输出文档是后一阶段的输入文档。瀑布方法简单，易理解，易操作，它迫使开发人员遵守规范的方法，消除了程序开发的随意性，并且每一阶段对完成的文档进行严格审核，一定程度上保证了程序的质量，但是此种方法必须要在早期严格定义或者明确用户需求，确定问题和解决问题，一旦其中某个环节出现问题那将延期后面所有的环节，无初期原型可见，要等到开发周期的晚期才能看到程序运行版本，这时如果发现重大的问题，那后果是灾难性的。</p>
+<h5 id="优缺点："><a href="#优缺点：" class="headerlink" title="优缺点："></a>优缺点：</h5><p>1.严格把软件项目的开发分隔成各个开发阶段：需求分析，要件定义，基本设计，详细设计，编码，单体测试，结合测试，系统测试等。</p>
+<p>2.使用里程碑的方式，严格定义了各开发阶段的输入和输出。如果达不到要求的输出，下一阶段的工作就不展开。</p>
+<p>3.重视和强调过程文档，在开发的中后期才会看到软件原型，早起只能通过文档来了解系统的模样。在这种情况下，文档的重要性仿佛已经超过了代码的重要性。</p>
+<p>4.瀑布模型把每个开发阶段都定义为黑盒，希望每个阶段的人员只关心自己阶段的工作，不需要关注其他阶段的工作。</p>
+<p>1.由于各阶段的开发人员只能接触到自己工作范围内的东西，所以对客户需求的理解程度高低不等，开发人员更像是定义为流水线上的工人。</p>
+<p>2.对于客户需求变更，编码人员会比设计人员更容易产生很强的抵触情绪。</p>
+<p>3.在每个开发阶段都会有一些信息刻意的不让其他开发阶段的人员知道（本意是为了提到效率，但实际上有时候产生的是互相的理解偏差）。</p>
+<p>4.各阶段人员沟通少，难以达成完美的开发过程。</p>
+<p>5.是人就不可能不犯错误，完全按照理想的自顶向下的瀑布流方法几乎是不可能的，就会造成强行倒流流程，造成更多的问题和延期。</p>
+<h2 id="2-原型开发方法"><a href="#2-原型开发方法" class="headerlink" title="2.原型开发方法"></a>2.原型开发方法</h2><p> 并非所有的需求再开发之初都能准确地说明，通过观察和体验程序，会取消事先提出的需求，而提出新的需求，这种情况在工作中是会很频繁的出现的，这种反复是不可避免的，也是有必要的。</p>
+<p> 原型方法产生于20世纪80年代中期。其基本思想就是：在投入大量的人力、物力之前，在限定的时间内，用最经济的方法构造一个系统原型，使人们能尽早看到未来系统的概貌，然后大家在一起讨论，发现其中的问题，提出修改意见，不断<strong>完善原型</strong>，使他满足我们的要求。</p>
+<p><img src="https://img-blog.csdnimg.cn/20191026013645197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwOTk2ODgx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5 id="优缺点：-1"><a href="#优缺点：-1" class="headerlink" title="优缺点："></a>优缺点：</h5><ol>
+<li>增进了用户与开发人员之间的沟通，启迪和发掘用户的真实需求，让人能够 “看得见”，“摸得着”，可以很清楚地把他们的意见反馈给开发人员或者分析人员。</li>
+<li>用户在系统开发过程中起主导作用，随时提供现场的第一手资料，帮助开发者认识到真正的需求。</li>
+<li>降低开发风险，因为更有效地辨别了用户的需求，减少了开发人员对用户需求的误解，避免了较大偏离的情况发生。</li>
+<li>可以帮助开发人员尽早的验证系统架构、关键的算法、人机交互等设计方案的有效性。</li>
+</ol>
+<p>1.原型法不如瀑布方法成熟和便于管控，由于用户的大量参与，也会产生一些新的问题，如原型的评估标准是否完全合理，造成频繁的修改需求。</p>
+<p>2.这种过早交付产品的结构，虽然缩短了系统开发的时间，但损害了系统质量，增加了维护代价。</p>
+<h2 id="3-迭代开发方法"><a href="#3-迭代开发方法" class="headerlink" title="3.迭代开发方法"></a>3.迭代开发方法</h2><p>​    上述原型方法只是一种需求验证的手段，如果将其思想应用到整个开发过程，使得每个阶段的任务经过多次反复，或者分析、设计、实施的周期反复多次，通过一次次迭代，不断的在原来的基础上完善和修正，越来越靠近目标，这样的开发过程就称为迭代方法。</p>
+<p>​    在开发的过程中，一条直线一次性的到达目的总是困难的。随着规模和复杂性的日益增长，市场竞争对工期要求也越来越紧，缓解风险和压力的方式是险提交一个有限的版本，细节部分逐步增加，经过多次的迭代完成系统开发。</p>
+<p><img src="https://img-blog.csdnimg.cn/20191026013657184.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwOTk2ODgx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p> 将系统划分为多个小型的、功能相对独立的小项目。每一次迭代都包括了分析、设计、实施与测试等一个完整周期，每个迭代周期完成一个增量，然后将他们集成。整个过程就好像是在搭积木。迭代开发方法是目前应用最为广泛的开发过程。</p>
+<h5 id="优缺点：-2"><a href="#优缺点：-2" class="headerlink" title="优缺点："></a>优缺点：</h5><p>　　1.降低风险它以功能递增或进化的方式进行软件开发。不仅可以较快地产生可操作的系统，改善测试效果，而且分析师、设计师和程序员等技术人员都可以实现并行化作用。<br>　　2.得到早期用户反馈,持续的测试和集成可以达到不断求精的下一个迭代周期中，软件质量不断进步，降低开发的总成本。</p>
+<p>​    1.困难的是迭代的定义，包括迭代的长度。</p>
+<p>​    2.进化型迭代或小型项目可以一周一次迭代，项目组必须要有经验丰富的架构师，否则很难规划出每次迭代的内容和要到达的目标，相关交付软件的验证和过程控制也需要投入较多的精力</p>
+<h2 id="4-敏捷开发方法"><a href="#4-敏捷开发方法" class="headerlink" title="4.敏捷开发方法"></a>4.敏捷开发方法</h2><p>在90年代末期，传统软件开发的方式因为其繁杂的过程，以及对文档的过于严格的要求，造成了很大程度上的效率下降，也就是人们所说的“重型化危机”。因为这一原因，人们开始反思传统方法的利弊，并对其弊端进行了改进，提出了敏捷方法。</p>
+<p>敏捷开发流程主要包括：三个角色、四个会议和三个物件（343）。</p>
+<p>三个角色：</p>
+<p>　　产品负责人（Product Owner）</p>
+<p>​            主要负责确定产品的功能和达到要求的标准，指定软件的发布日期和交付的内容，同时有权力接受或拒绝开发团队的工作成果。</p>
+<p>  流程管理员（Scrum Master）</p>
+<p>​            主要负责整个Scrum流程在项目中的顺利实施和进行，以及清除挡在客户和开发工作之间的沟通障碍，使得客户可以直接驱动开发。</p>
+<p>   开发团队（Scrum Team）</p>
+<p>​           主要负责软件产品在Scrum规定流程下进行开发工作，人数控制在5~10人左右。</p>
+<p>四个会议：</p>
+<p>   1、Sprint计划会议 </p>
+<p>​        Sprint是短距离赛跑的意思，这里面指的是一次迭代，而一次迭代的周期是1个月时间（即4个星期），也就是我们要把一次迭代的开发内容以最快的速度完成它，这个过程我们称它为Sprint。</p>
+<p>   2、每日立会</p>
+<p>   3、Sprint评审会议 </p>
+<p>   4、Sprint回顾会议 </p>
+<p>三个物件：</p>
+<p>   1、产品Backlog  产品Backlog指根据初始需求分解出的任务列表，包括功能性和非功能性的所有功能。</p>
+<p>   2、Sprint Backlog Sprint Backlog就是任务列表，如果映射到传统的项目管理理论中就是WBS（work breakdown structure)，而且是典型的采用面向交付物的任务分解方法得到的WBS。</p>
+<p>   3、燃尽图。</p>
+<p>5种敏捷开发的方法：</p>
+<ol>
+<li><strong>极限编程XP</strong></li>
+<li><strong>水晶方法</strong></li>
+<li><strong>DSDM-动态系统开发方法</strong></li>
+<li><strong>测试驱动开发</strong></li>
+<li><strong>Lean软件开发</strong></li>
+</ol>
+<p>1.<strong>极限编程XP</strong></p>
+<p> 极限编程是一个轻量级的、灵巧的软件开发方法；同时它也是一个非常严谨和周密的方法。它的基础和价值观是交流、朴素、反馈和勇气；即，任何一个软件项目都可以从四个方面入手进行改善：加强交流；从简单做起；寻求反馈；勇于实事求是。XP是一种近螺旋式的开发方法，它将复杂的开发过程分解为一个个相对比较简单的小周期；通过积极的交流、反馈以及其它一系列的方法，开发人员和客户可以非常清楚开发进度、变化、待解决的问题和潜在的困难等，并根据实际情况及时地调整开发过程。</p>
+<p>2.<strong>水晶方法</strong></p>
+<p>水晶方法，Crystal ，是由 Alistair Cockburn 和 Jim Highsmith 建立的敏捷方法系列，其目的是发展一种提倡“机动性的”[1]方法，包含具有共性的核心元素，每个都含有独特的角色、过程模式、工作产品和实践。Crystal 家族实际上是一组经过证明、对不同类型项目非常有效的敏捷过程，它的发明使得敏捷团队可以根据其项目和环境选择最合适的 Crystal 家族成员。水晶系列与XP一样，都有以人为中心的理念，但在实践上有所不同。</p>
+<p>透明水晶方法的七大体系特征：</p>
+<p>体系特征一：经常交付</p>
+<p>体系特征二：反思改进</p>
+<p>体系特征三：渗透式交流</p>
+<p>体系特征四：个人安全</p>
+<p>体系特征五：焦点</p>
+<p>体系特征六：与专家用户建立方便的联系</p>
+<p>体系特征七：配有自动测试、配置管理和经常集成功能的技术环境</p>
+<p>3.<strong>DSDM-动态系统开发方法</strong></p>
+<p>  它倡导以业务为核心，快速而有效地进行系统开发。实践证明DSDM是成功的敏捷开发   方法之一。在英国，由于其在各种规模的软件组织中的成功，它已成为应用最为广泛的快速应用开发方法。本书主要讲述这样几方面内容：DSDM如何加快产品的   交付，为什么像DSDM这样的敏捷开发方法能够快速体现所开发系统给业务带来的好处，如何组织用户参与项目以开发出可用的系统，如何将不同知识背景的人组  成一个团队，如何应对常规的业务约束以进行项目管理。</p>
+<p>4.<strong>测试驱动开发</strong></p>
+<p>   测试驱动开发的基本思想就是在开发功能代码之前，先编写测试代码，然后只编写使测试通过的功能代码，从而以测试来驱动整个开发过程的进行。这有助于编写简洁可用和高质量的代码，有很高的灵活性和健壮性，能快速响应变化，并加速开发过程。</p>
+<p>测试驱动开发的基本过程如下：</p>
+<p>1.快速新增一个测试</p>
+<p>2.运行所有的测试（有时候只需要运行一个或一部分），发现新增的测试不能通过</p>
+<p>3.做一些小小的改动，尽快地让测试程序可运行，为此可以在程序中使用一些不合情理的方法</p>
+<p>4.运行所有的测试，并且全部通过</p>
+<p>5.重构代码，以消除重复设计，优化设计结构</p>
+<p>简单来说，就是不可运行/可运行/重构——这正是测试驱动开发的口号。</p>
+<p>测试驱动开发不是一种测试技术，它是一种分析技术、设计技术，更是一种组织所有开发活动的技术。相对于传统的结构化开发过程方法，它具有以下优势：</p>
+<p>1) TDD根据客户需求编写测试用例，对功能的过程和接口都进行了设计，而且这种从使用者角度对代码进行的设计通常更符合后期开发的需求。因为关注用户反馈，可以及时响应需求变更，同时因为从使用者角度出发的简单设计，也可以更快地适应变化。</p>
+<p>2) 出于易测试和测试独立性的要求，将促使我们实现松耦合的设计，并更多地依赖于接口而非具体的类，提高系统的可扩展性和抗变性。而且TDD明显地缩短了设计决策的反馈循环，使我们几秒或几分钟之内就能获得反馈。</p>
+<p>3) 将测试工作提到编码之前，并频繁地运行所有测试，可以尽量地避免和尽早地发现错误，极大地降低了后续测试及修复的成本，提高了代码的质量。在测试的保护下，不断重构代码，以消除重复设计，优化设计结构，提高了代码的重用性，从而提高了软件产品的质量。</p>
+<p>4) TDD提供了持续的回归测试，使我们拥有重构的勇气，因为代码的改动导致系统其他部分产生任何异常，测试都会立刻通知我们。完整的测试会帮助我们持续地跟踪整个系统的状态，因此我们就不需要担心会产生什么不可预知的副作用了。</p>
+<p>5) TDD所产生的单元测试代码就是最完美的开发者文档，它们展示了所有的API该如何使用以及是如何运作的，而且它们与工作代码保持同步，永远是最新的。</p>
+<p>6) TDD可以减轻压力、降低忧虑、提高我们对代码的信心、使我们拥有重构的勇气，这些都是快乐工作的重要前提。</p>
+<p>7)快速的提高了开发效率。</p>
+<p>5.<strong>Lean软件开发（精益软件开发）</strong></p>
+<p>和精益制造原则的概念相近，精益开发也可以总结为如下七条原则：</p>
+<ul>
+<li><p>消除浪费</p>
+</li>
+<li><p>增强学习</p>
+</li>
+<li><p>尽量延迟决定</p>
+</li>
+<li><p>尽快发布</p>
+</li>
+<li><p>下放权力</p>
+</li>
+<li><p>嵌入质量</p>
+</li>
+<li><p>全局优化</p>
+<p>面对开发团队以及最终的产品大小的额外挑战，可以说软件开发是个持续学习的过程。最佳的改善软件开发环境的做法就是增强学习。在代码完成后马上进行测试可以避免缺陷的累积。不是去做成更多的文档或详细设计，而是对各种各样的想法进行实际的编码尝试。用户需求的收集过程可以简单地通过给最终客户演示，并听取他们的反馈来完成。</p>
+<p>使用短周期的迭代（每个迭代都应包括重构和集成测试）可以加速学习过程。在决定当前阶段的开发内容并对未来改善的努力方向进行调整时，在客户端帮助下通过简短的反馈会议来增强反馈。通过这些简短的反馈会议，客户代表和开发团队会更多地发现在进一步开发时会遇到的主要问题及可能的解决方案。从而，基于已开发出的原型，客户可以更好地理解自己的需求，开发者也能了解到如何才能更好地满足客户的需求。另一个关于和客户沟通、学习的想法是“基于组的开发”，这种方法聚焦于未来解决方案的约束限定而不是各种可能的解决方案，因此通过和客户的对话加速了解决方案的产生。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+	</div>
+	
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/系统信息设计与分析/" rel="tag"><i class="fa fa-tag"></i> 系统信息设计与分析</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/25/Android-Tv-wifi网络认证登录/" rel="next" title="Android Tv wifi网络认证登录">
+                <i class="fa fa-chevron-left"></i> Android Tv wifi网络认证登录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/hzyicon.jpg" alt="hzy">
+            
+              <p class="site-author-name" itemprop="name">hzy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_30996881" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-globe"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#软件的基于生命周期开发方法"><span class="nav-number">1.</span> <span class="nav-text">软件的基于生命周期开发方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开发方法"><span class="nav-number">1.0.1.</span> <span class="nav-text">开发方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-瀑布流开发方法"><span class="nav-number">1.1.</span> <span class="nav-text">1.瀑布流开发方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优缺点："><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">优缺点：</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#2-原型开发方法"><span class="nav-number">1.2.</span> <span class="nav-text">2.原型开发方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优缺点：-1"><span class="nav-number">1.2.0.0.1.</span> <span class="nav-text">优缺点：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-迭代开发方法"><span class="nav-number">1.3.</span> <span class="nav-text">3.迭代开发方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#优缺点：-2"><span class="nav-number">1.3.0.0.1.</span> <span class="nav-text">优缺点：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-敏捷开发方法"><span class="nav-number">1.4.</span> <span class="nav-text">4.敏捷开发方法</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hzy</span>
+
+  
+</div>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"live2d-widget-model-wanko"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>
